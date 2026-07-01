@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO -->
+  <title>[NOME_RISTORANTE] – [SLOGAN] | [CITTA]</title>
+  <meta name="description" content="[NOME_RISTORANTE] a [CITTA]: cucina tradizionale italiana con ingredienti freschi e piatti fatti in casa. Prenota il tuo tavolo e scopri il vero sapore della tradizione." />
+  <meta name="keywords" content="ristorante [CITTA], cucina tradizionale, ristorante italiano, [NOME_RISTORANTE]" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.[NOME_RISTORANTE].it/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="restaurant" />
+  <meta property="og:title" content="[NOME_RISTORANTE] – [SLOGAN]" />
+  <meta property="og:description" content="Cucina tradizionale italiana a [CITTA]. Ingredienti freschi, piatti fatti in casa e un'atmosfera unica." />
+  <meta property="og:image" content="[FOTO_HERO]" />
+  <meta property="og:url" content="https://www.[NOME_RISTORANTE].it/" />
+  <meta property="og:locale" content="it_IT" />
+
+  <!-- Schema.org Local Business -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "[NOME_RISTORANTE]",
+    "description": "[SLOGAN]",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "[INDIRIZZO]",
+      "addressLocality": "[CITTA]",
+      "addressCountry": "IT"
+    },
+    "telephone": "[TELEFONO]",
+    "email": "[EMAIL]",
+    "openingHours": "[ORARI]",
+    "servesCuisine": "Italian",
+    "priceRange": "€€"
+  }
+  </script>
+
+  <style>
+    /* ─── DESIGN TOKENS ─────────────────────────────────────────── */
+    :root {
+      --c-bg:        #FAF8F5;
+      --c-surface:   #FFFFFF;
+      --c-ink:       #1A1714;
+      --c-ink-mid:   #4A4540;
+      --c-ink-soft:  #8C857D;
+      --c-gold:      #B8935A;
+      --c-gold-lt:   #D4B07A;
+      --c-rule:      #E8E2DA;
+      --c-overlay:   rgba(20,16,12,0.52);
+
+      --ff-display:  'Georgia', 'Times New Roman', serif;
+      --ff-body:     system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --ff-label:    'Courier New', monospace;
+
+      --r:           6px;
+      --r-lg:        12px;
+      --gap:         clamp(1.5rem, 4vw, 3rem);
+
+      --ease-out:    cubic-bezier(.22,.68,0,1.2);
+    }
+
+    /* ─── RESET ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--c-bg);
+      color: var(--c-ink);
+      font-family: var(--ff-body);
+      font-size: clamp(15px, 1.6vw, 17px);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; width: 100%; object-fit: cover; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ─── TYPOGRAPHY ─────────────────────────────────────────────── */
+    .display {
+      font-family: var(--ff-display);
+      font-style: italic;
+      letter-spacing: -.01em;
+    }
+    .eyebrow {
+      font-family: var(--ff-label);
+      font-size: .72rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+    }
+    h1 { font-size: clamp(2.6rem, 6vw, 5rem); line-height: 1.08; }
+    h2 { font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.15; }
+    h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); line-height: 1.25; }
+    p  { color: var(--c-ink-mid); }
+
+    /* ─── LAYOUT ─────────────────────────────────────────────────── */
+    .container {
+      width: min(1140px, 92vw);
+      margin-inline: auto;
+    }
+    section { padding-block: clamp(4rem, 8vw, 7rem); }
+
+    /* ─── BUTTONS ─────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .85rem 2rem;
+      border-radius: var(--r);
+      font-family: var(--ff-body);
+      font-size: .9rem;
+      font-weight: 600;
+      letter-spacing: .03em;
+      cursor: pointer;
+      transition: transform .2s var(--ease-out), box-shadow .2s ease;
+      border: none;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.15); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: var(--c-gold);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--c-gold-lt); }
+
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,.65);
+    }
+    .btn-outline:hover { background: rgba(255,255,255,.1); }
+
+    .btn-dark {
+      background: var(--c-ink);
+      color: #fff;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--c-gold);
+      border: 1.5px solid var(--c-gold);
+      padding: .75rem 1.8rem;
+    }
+    .btn-ghost:hover { background: var(--c-gold); color: #fff; }
+
+    /* ─── NAV ─────────────────────────────────────────────────────── */
+    #nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 100;
+      padding: 1.1rem 0;
+      transition: background .3s, box-shadow .3s;
+    }
+    #nav.scrolled {
+      background: rgba(250,248,245,.96);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 1px 0 var(--c-rule);
+    }
+    #nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-size: 1.35rem;
+      font-style: italic;
+      color: #fff;
+      transition: color .3s;
+    }
+    #nav.scrolled .nav-logo { color: var(--c-ink); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: .85rem;
+      font-weight: 500;
+      color: rgba(255,255,255,.85);
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--c-gold-lt); }
+    #nav.scrolled .nav-links a { color: var(--c-ink-mid); }
+    #nav.scrolled .nav-links a:hover { color: var(--c-gold); }
+
+    .nav-cta {
+      background: var(--c-gold);
+      color: #fff !important;
+      padding: .5rem 1.2rem;
+      border-radius: var(--r);
+    }
+    #nav.scrolled .nav-cta { color: #fff !important; }
+
+    /* Hamburger */
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-burger span {
+      width: 24px; height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: background .3s;
+    }
+    #nav.scrolled .nav-burger span { background: var(--c-ink); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; gap: 0; }
+      .nav-burger { display: flex; }
+      .nav-links.open {
+        display: flex;
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        background: var(--c-surface);
+        padding: 1rem 5vw 1.5rem;
+        box-shadow: 0 8px 24px rgba(0,0,0,.1);
+      }
+      .nav-links.open a { color: var(--c-ink-mid); padding: .7rem 0; border-bottom: 1px solid var(--c-rule); font-size: .95rem; }
+      .nav-links.open .nav-cta { border: none; background: var(--c-gold); color: #fff; border-radius: var(--r); text-align: center; margin-top: .5rem; }
+    }
+
+    /* ─── HERO ────────────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding-block: 0;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #2b1f14 0%, #4a3420 50%, #1a1209 100%);
+      z-index: 0;
+    }
+    /* Decorative grain overlay */
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: .4;
+    }
+    .hero-img {
+      position: absolute; inset: 0;
+      background: url('[FOTO_HERO]') center/cover no-repeat;
+      opacity: .35;
+      z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(10,7,4,.3) 0%, rgba(10,7,4,.6) 100%);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center;
+      color: #fff;
+      padding-block: 8rem 5rem;
+      width: 100%;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: var(--c-gold-lt);
+    }
+    .hero-title {
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: clamp(3.2rem, 8vw, 6.5rem);
+      line-height: 1.04;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+    .hero-slogan {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: rgba(255,255,255,.72);
+      margin-bottom: 2.5rem;
+      max-width: 540px;
+      margin-inline: auto;
+    }
+    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: .4rem;
+    }
+    .hero-scroll span { font-family: var(--ff-label); font-size: .65rem; letter-spacing: .14em; color: rgba(255,255,255,.45); text-transform: uppercase; }
+    .scroll-line {
+      width: 1px; height: 44px;
+      background: linear-gradient(to bottom, rgba(255,255,255,.5), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse { 0%,100%{ opacity:.3 } 50%{ opacity:1 } }
+
+    /* ─── TRUST BADGES ────────────────────────────────────────────── */
+    #badges {
+      padding-block: 2rem;
+      border-top: 1px solid var(--c-rule);
+      border-bottom: 1px solid var(--c-rule);
+      background: var(--c-surface);
+    }
+    .badges-grid {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+    .badge-item {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      color: var(--c-ink-mid);
+    }
+    .badge-icon {
+      width: 2rem; height: 2rem;
+      background: var(--c-gold);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .badge-icon svg { width: 1rem; height: 1rem; fill: #fff; }
+    .badge-sep { width: 1px; height: 2rem; background: var(--c-rule); }
+    @media (max-width: 500px) { .badge-sep { display: none; } }
+
+    /* ─── CHI SIAMO ──────────────────────────────────────────────── */
+    #chi-siamo .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2.5rem, 5vw, 5rem);
+      align-items: center;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-img-main {
+      aspect-ratio: 4/5;
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      background: var(--c-rule);
+    }
+    .about-img-main img { height: 100%; }
+    .about-accent {
+      position: absolute;
+      bottom: -1.5rem; right: -1.5rem;
+      width: 48%;
+      aspect-ratio: 1;
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      border: 5px solid var(--c-bg);
+      background: var(--c-rule);
+    }
+    .about-years {
+      position: absolute;
+      top: 1.5rem; left: -1.5rem;
+      background: var(--c-gold);
+      color: #fff;
+      padding: 1rem 1.2rem;
+      border-radius: var(--r);
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(184,147,90,.3);
+    }
+    .about-years strong { display: block; font-size: 2rem; line-height: 1; font-family: var(--ff-display); }
+    .about-years span { font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; opacity: .85; }
+
+    .about-text { padding-block: 1rem; }
+    .about-text .eyebrow { margin-bottom: 1rem; display: block; }
+    .about-text h2 { margin-bottom: 1.5rem; }
+    .about-text p { margin-bottom: 1.2rem; }
+    .about-divider { width: 3rem; height: 2px; background: var(--c-gold); margin-block: 1.5rem; border: none; }
+
+    @media (max-width: 768px) {
+      #chi-siamo .container { grid-template-columns: 1fr; }
+      .about-visual { order: -1; }
+      .about-accent { right: 0; bottom: -1rem; }
+      .about-years { left: 0; }
+    }
+
+    /* ─── SPECIALITÀ ─────────────────────────────────────────────── */
+    #specialita { background: var(--c-surface); }
+    .section-header { text-align: center; margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+    .section-header .eyebrow { display: block; margin-bottom: .75rem; }
+    .section-header h2 { margin-bottom: 1rem; }
+    .section-header p { max-width: 520px; margin-inline: auto; }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+    }
+    .card {
+      background: var(--c-bg);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      transition: transform .3s var(--ease-out), box-shadow .3s ease;
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,.1); }
+
+    .card-img {
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, var(--c-rule) 0%, #d4cbbf 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      overflow: hidden;
+    }
+    .card-img img { height: 100%; }
+    .card-body { padding: 1.4rem; }
+    .card-label { font-family: var(--ff-label); font-size: .68rem; letter-spacing: .14em; color: var(--c-gold); text-transform: uppercase; display: block; margin-bottom: .5rem; }
+    .card-body h3 { margin-bottom: .6rem; font-family: var(--ff-display); font-style: italic; }
+    .card-body p { font-size: .9rem; color: var(--c-ink-soft); line-height: 1.6; }
+
+    @media (max-width: 700px) { .cards-grid { grid-template-columns: 1fr; } }
+    @media (min-width: 500px) and (max-width: 700px) { .cards-grid { grid-template-columns: 1fr 1fr; } }
+
+    /* ─── MENU ───────────────────────────────────────────────────── */
+    #menu .container { max-width: 800px; }
+    .menu-tabs {
+      display: flex;
+      gap: .5rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .tab-btn {
+      background: none;
+      border: 1.5px solid var(--c-rule);
+      border-radius: 50px;
+      padding: .5rem 1.4rem;
+      font-family: var(--ff-body);
+      font-size: .85rem;
+      font-weight: 500;
+      color: var(--c-ink-soft);
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--c-gold);
+      border-color: var(--c-gold);
+      color: #fff;
+    }
+    .menu-section { display: none; }
+    .menu-section.active { display: block; }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--c-rule);
+    }
+    .menu-item:last-child { border-bottom: none; }
+    .menu-item-info h4 { font-family: var(--ff-display); font-style: italic; font-size: 1.05rem; margin-bottom: .25rem; }
+    .menu-item-info p { font-size: .85rem; color: var(--c-ink-soft); }
+    .menu-price { font-weight: 700; color: var(--c-gold); white-space: nowrap; flex-shrink: 0; }
+    .menu-cta { text-align: center; margin-top: 2.5rem; }
+
+    /* ─── RECENSIONI ─────────────────────────────────────────────── */
+    #recensioni { background: var(--c-surface); }
+    .reviews-score {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .score-number { font-size: 5rem; font-family: var(--ff-display); line-height: 1; color: var(--c-ink); }
+    .score-detail { display: flex; flex-direction: column; gap: .3rem; }
+    .stars { color: #F59E0B; font-size: 1.2rem; letter-spacing: .1em; }
+    .score-meta { font-size: .85rem; color: var(--c-ink-soft); }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .review-card {
+      background: var(--c-bg);
+      border-radius: var(--r-lg);
+      padding: 1.6rem;
+      border: 1px solid var(--c-rule);
+    }
+    .review-header { display: flex; gap: .8rem; align-items: center; margin-bottom: 1rem; }
+    .review-avatar {
+      width: 2.6rem; height: 2.6rem;
+      border-radius: 50%;
+      background: var(--c-gold);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: #fff;
+      font-size: .9rem;
+      flex-shrink: 0;
+    }
+    .review-name { font-weight: 600; font-size: .9rem; }
+    .review-date { font-size: .75rem; color: var(--c-ink-soft); }
+    .review-stars { color: #F59E0B; font-size: .85rem; margin-bottom: .75rem; }
+    .review-text { font-size: .88rem; color: var(--c-ink-mid); line-height: 1.65; font-style: italic; }
+    .reviews-cta { text-align: center; }
+
+    @media (max-width: 700px) { .reviews-grid { grid-template-columns: 1fr; } }
+    @media (min-width: 500px) and (max-width: 700px) { .reviews-grid { grid-template-columns: 1fr 1fr; } }
+
+    /* ─── GALLERIA ───────────────────────────────────────────────── */
+    #galleria { background: var(--c-ink); }
+    #galleria .section-header h2 { color: #fff; }
+    #galleria .section-header p { color: rgba(255,255,255,.55); }
+    #galleria .eyebrow { color: var(--c-gold-lt); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto auto;
+      gap: .75rem;
+    }
+    .gallery-item {
+      overflow: hidden;
+      border-radius: var(--r);
+      cursor: pointer;
+      background: #2a2018;
+    }
+    .gallery-item img,
+    .gallery-item .gallery-placeholder {
+      width: 100%; height: 100%;
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      transition: transform .5s ease;
+    }
+    .gallery-item:hover .gallery-placeholder,
+    .gallery-item:hover img { transform: scale(1.06); }
+
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .gallery-item:nth-child(1) .gallery-placeholder { min-height: 370px; }
+
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+      .gallery-item:nth-child(1) .gallery-placeholder { min-height: 200px; }
+    }
+
+    /* ─── INFO ───────────────────────────────────────────────────── */
+    #info .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 5vw, 4rem);
+      align-items: start;
+    }
+    .info-items { display: flex; flex-direction: column; gap: 1.4rem; }
+    .info-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .info-icon {
+      width: 2.6rem; height: 2.6rem;
+      background: #F5F1EC;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      flex-shrink: 0;
+    }
+    .info-icon svg { width: 1.1rem; height: 1.1rem; stroke: var(--c-gold); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .info-item-label { font-family: var(--ff-label); font-size: .68rem; letter-spacing: .12em; color: var(--c-gold); text-transform: uppercase; display: block; margin-bottom: .2rem; }
+    .info-item-value { font-weight: 500; }
+    .info-item-value a:hover { color: var(--c-gold); }
+
+    .hours-grid { display: grid; grid-template-columns: auto 1fr; gap: .3rem 1.5rem; font-size: .9rem; margin-top: .5rem; }
+    .hours-grid .day { color: var(--c-ink-soft); }
+    .hours-grid .time { font-weight: 500; }
+
+    @media (max-width: 768px) { #info .container { grid-template-columns: 1fr; } }
+
+    /* ─── MAPPA ──────────────────────────────────────────────────── */
+    #mappa { padding-block: 0; }
+    .map-container { height: clamp(300px, 40vw, 480px); }
+    .map-container iframe { width: 100%; height: 100%; border: none; }
+    .map-placeholder {
+      width: 100%; height: 100%;
+      background: var(--c-rule);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1rem; color: var(--c-ink-soft); font-size: .9rem;
+    }
+    .map-placeholder svg { width: 3rem; height: 3rem; stroke: var(--c-gold); fill: none; stroke-width: 1.5; }
+
+    /* ─── CTA FINALE ─────────────────────────────────────────────── */
+    #cta-finale {
+      background: linear-gradient(135deg, #2b1f14 0%, #1a1209 100%);
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    #cta-finale::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(184,147,90,.2) 0%, transparent 70%);
+    }
+    #cta-finale .container { position: relative; z-index: 1; }
+    #cta-finale .eyebrow { color: var(--c-gold-lt); display: block; margin-bottom: 1rem; }
+    #cta-finale h2 { color: #fff; margin-bottom: 1rem; }
+    #cta-finale p { color: rgba(255,255,255,.65); margin-bottom: 2rem; max-width: 480px; margin-inline: auto; margin-bottom: 2rem; }
+    #cta-finale .btn-primary { font-size: 1rem; padding: 1rem 2.4rem; }
+
+    /* ─── FOOTER ─────────────────────────────────────────────────── */
+    #footer {
+      background: #120D09;
+      color: rgba(255,255,255,.5);
+      padding-block: 3rem 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .footer-brand .nav-logo { display: block; margin-bottom: 1rem; color: #fff; }
+    .footer-brand p { font-size: .87rem; line-height: 1.7; max-width: 260px; }
+    .footer-social { display: flex; gap: .75rem; margin-top: 1.2rem; }
+    .social-icon {
+      width: 2.2rem; height: 2.2rem;
+      background: rgba(255,255,255,.06);
+      border-radius: 50%;
+      display: grid; place-items: center;
+      transition: background .2s;
+    }
+    .social-icon:hover { background: var(--c-gold); }
+    .social-icon svg { width: 1rem; height: 1rem; fill: rgba(255,255,255,.7); }
+    .social-icon:hover svg { fill: #fff; }
+
+    .footer-col h5 { color: #fff; font-size: .82rem; letter-spacing: .1em; text-transform: uppercase; font-family: var(--ff-label); margin-bottom: 1rem; }
+    .footer-col ul li + li { margin-top: .5rem; }
+    .footer-col a { font-size: .87rem; transition: color .2s; }
+    .footer-col a:hover { color: var(--c-gold-lt); }
+    .footer-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-size: .78rem; }
+
+    @media (max-width: 640px) { .footer-grid { grid-template-columns: 1fr; } }
+
+    /* ─── ANIMATIONS ─────────────────────────────────────────────── */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .6s ease, transform .6s var(--ease-out);
+    }
+    [data-reveal].visible {
+      opacity: 1;
+      transform: none;
+    }
+    [data-reveal][data-delay="1"] { transition-delay: .1s; }
+    [data-reveal][data-delay="2"] { transition-delay: .2s; }
+    [data-reveal][data-delay="3"] { transition-delay: .3s; }
+    [data-reveal][data-delay="4"] { transition-delay: .4s; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAV ═══════════════════════════════════════════════════════ -->
+  <nav id="nav" role="navigation" aria-label="Navigazione principale">
+    <div class="container">
+      <a href="#" class="nav-logo">[NOME_RISTORANTE]</a>
+      <div class="nav-links" id="navLinks">
+        <a href="#chi-siamo">Chi Siamo</a>
+        <a href="#specialita">Specialità</a>
+        <a href="#menu">Menù</a>
+        <a href="#recensioni">Recensioni</a>
+        <a href="#info">Contatti</a>
+        <a href="[LINK_PRENOTAZIONE]" class="nav-cta" target="_blank" rel="noopener">Prenota</a>
+      </div>
+      <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══ HERO ═══════════════════════════════════════════════════════ -->
+  <header id="hero" role="banner">
+    <div class="hero-bg"></div>
+    <div class="hero-img" aria-hidden="true"></div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="container hero-content">
+      <span class="eyebrow hero-eyebrow">[CITTA] · Dal 1987</span>
+      <h1 class="hero-title">[NOME_RISTORANTE]</h1>
+      <p class="hero-slogan">[SLOGAN]</p>
+      <div class="hero-actions">
+        <a href="[LINK_PRENOTAZIONE]" class="btn btn-primary" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Prenota Ora
+        </a>
+        <a href="[LINK_MENU]" class="btn btn-outline" target="_blank" rel="noopener">
+          Visualizza Menù
+        </a>
+      </div>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">
+      <div class="scroll-line"></div>
+      <span>Scopri</span>
+    </div>
+  </header>
+
+  <!-- ═══ TRUST BADGES ════════════════════════════════════════════════ -->
+  <section id="badges" aria-label="Riconoscimenti">
+    <div class="container">
+      <div class="badges-grid">
+        <div class="badge-item">
+          <div class="badge-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          Cucina Tradizionale
+        </div>
+        <div class="badge-sep"></div>
+        <div class="badge-item">
+          <div class="badge-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          Ingredienti Freschi
+        </div>
+        <div class="badge-sep"></div>
+        <div class="badge-item">
+          <div class="badge-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          Piatti Fatti in Casa
+        </div>
+        <div class="badge-sep"></div>
+        <div class="badge-item">
+          <div class="badge-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          Oltre 35 Anni di Esperienza
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CHI SIAMO ════════════════════════════════════════════════════ -->
+  <section id="chi-siamo" aria-label="Chi siamo">
+    <div class="container">
+      <div class="about-visual" data-reveal>
+        <div class="about-img-main">
+          <!-- Rimpiazza con: <img src="[FOTO_INTERNI]" alt="Sala del ristorante [NOME_RISTORANTE]"> -->
+          <div style="width:100%;height:100%;min-height:420px;background:linear-gradient(135deg,#c4b49a,#8c7860);display:flex;align-items:center;justify-content:center;font-size:4rem;">🍽️</div>
+        </div>
+        <div class="about-accent">
+          <!-- Rimpiazza con: <img src="[FOTO_CUCINA]" alt="La nostra cucina"> -->
+          <div style="width:100%;height:100%;min-height:160px;background:linear-gradient(135deg,#a09080,#6b5c4e);display:flex;align-items:center;justify-content:center;font-size:2.5rem;">👨‍🍳</div>
+        </div>
+        <div class="about-years">
+          <strong>35+</strong>
+          <span>Anni di<br>passione</span>
+        </div>
+      </div>
+      <div class="about-text">
+        <span class="eyebrow" data-reveal>La nostra storia</span>
+        <h2 class="display" data-reveal data-delay="1">Una cucina che<br>parla di radici</h2>
+        <hr class="about-divider" data-reveal data-delay="2">
+        <p data-reveal data-delay="2">Tutto nasce da una passione tramandata di generazione in generazione: il rispetto per le materie prime, la cura dei dettagli e il desiderio di regalare ad ogni ospite un momento indimenticabile.</p>
+        <p data-reveal data-delay="3">Selezioniamo personalmente gli ingredienti ogni mattina dal mercato locale. Pasta fresca tirata a mano, sughi che cuociono lentamente, carni da allevatori di fiducia. Niente è lasciato al caso.</p>
+        <p data-reveal data-delay="3">Da noi troverai la semplicità autentica della cucina italiana, esaltata da tecnica e amore per il bello.</p>
+        <div data-reveal data-delay="4">
+          <a href="#menu" class="btn btn-ghost" style="margin-top:.5rem;">Scopri il Menù</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SPECIALITÀ ═══════════════════════════════════════════════════ -->
+  <section id="specialita">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <span class="eyebrow">I nostri piatti</span>
+        <h2 class="display">Le Specialità della Casa</h2>
+        <p>Tre proposte che raccontano la nostra filosofia: semplicità, qualità e cuore.</p>
+      </div>
+      <div class="cards-grid">
+        <!-- Card 1 – Primo -->
+        <article class="card" data-reveal data-delay="1">
+          <div class="card-img">
+            <!-- Rimpiazza con: <img src="[FOTO_PRIMO]" alt="[NOME_PRIMO_PIATTO]"> -->
+            🍝
+          </div>
+          <div class="card-body">
+            <span class="card-label">Primo piatto</span>
+            <h3>[NOME_PRIMO_PIATTO]</h3>
+            <p>[DESCRIZIONE_PRIMO] — Pasta fresca tirata a mano con sugo della tradizione, cotta al momento per mantenere tutta la sua fragranza.</p>
+          </div>
+        </article>
+        <!-- Card 2 – Secondo -->
+        <article class="card" data-reveal data-delay="2">
+          <div class="card-img">
+            <!-- Rimpiazza con: <img src="[FOTO_SECONDO]" alt="[NOME_SECONDO_PIATTO]"> -->
+            🥩
+          </div>
+          <div class="card-body">
+            <span class="card-label">Secondo piatto</span>
+            <h3>[NOME_SECONDO_PIATTO]</h3>
+            <p>[DESCRIZIONE_SECONDO] — Carne selezionata da allevatori locali, lavorata con cura e rispetto per la materia prima.</p>
+          </div>
+        </article>
+        <!-- Card 3 – Dessert -->
+        <article class="card" data-reveal data-delay="3">
+          <div class="card-img">
+            <!-- Rimpiazza con: <img src="[FOTO_DESSERT]" alt="[NOME_DESSERT]"> -->
+            🍮
+          </div>
+          <div class="card-body">
+            <span class="card-label">Dessert</span>
+            <h3>[NOME_DESSERT]</h3>
+            <p>[DESCRIZIONE_DESSERT] — Dolci fatti in casa ogni giorno. Un finale di pasto come si faceva una volta, con ingredienti veri.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ MENÙ ══════════════════════════════════════════════════════════ -->
+  <section id="menu" style="background:var(--c-surface);">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <span class="eyebrow">Carta dei piatti</span>
+        <h2 class="display">Il Nostro Menù</h2>
+        <p>Una selezione di ciò che la nostra cucina sa offrire ogni giorno.</p>
+      </div>
+      <div class="menu-tabs" role="tablist" data-reveal>
+        <button class="tab-btn active" role="tab" aria-selected="true" onclick="switchTab('antipasti')">Antipasti</button>
+        <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab('primi')">Primi</button>
+        <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab('secondi')">Secondi</button>
+        <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab('dolci')">Dolci</button>
+      </div>
+
+      <div id="tab-antipasti" class="menu-section active" role="tabpanel" data-reveal>
+        <div class="menu-item">
+          <div class="menu-item-info"><h4>[ANTIPASTO_1]</h4><p>[DESCRIZIONE_ANTIPASTO_1]</p></div>
+          <span class="menu-price">€ [PREZZO]</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info"><h4>[ANTIPASTO_2]</h4><p>[DESCRIZIONE_ANTIPASTO_2]</p></div>
+          <span class="menu-price">€ [PREZZO]</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info"><h4>[ANTIPASTO_3]</h4><p>[DESCRIZIONE_ANTIPASTO_3]</p></div>
+          <span class="menu-price">€ [PREZZO]</span>
+        </div>
+      </div>
+
+      <div id="tab-primi" class="menu-section" role="tabpanel">
+        <div class="menu-item">
+          <div class="menu-item-info"><h4>[PRIMO_1]</h4><p>[DESCRIZIONE_PRIMO_1]</p></div>
+          <span class="menu-price">€ [PREZZO]</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info"><h4>[PRIMO_2]</h4><p>[DESCRIZIONE_PRIMO_2]</p></div>
+          <span class="menu-price">€ [PREZZO]</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info"><h4>[PRIMO_3]</h4><p>[DESCRIZIONE_PRIMO_3]</p></div>
+          <span class="menu-price">€ [PREZZO]</span>
+        </div>
+      </div>
+
+      <div id="tab-secondi" class="menu-section" role="tabpanel">
+        <div class="menu-item">
+          <div class="menu-item-info"><h4>[SECONDO_1]</h4><p>[DESCRIZIONE_SECONDO_1]</p></div>
+          <span class="menu-price">€ [PREZZO]</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info"><h4>[SECONDO_2]</h4><p>[DESCRIZIONE_SECONDO_2]</p></div>
+          <span class="menu-price">€ [PREZZO]</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info"><h4>[SECONDO_3]</h4><p>[DESCRIZIONE_SECONDO_3]</p></div>
+          <span class="menu-price">€ [PREZZO]</span>
+        </div>
+      </div>
+
+      <div id="tab-dolci" class="menu-section" role="tabpanel">
+        <div class="menu-item">
+          <div class="menu-item-info"><h4>[DOLCE_1]</h4><p>[DESCRIZIONE_DOLCE_1]</p></div>
+          <span class="menu-price">€ [PREZZO]</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info"><h4>[DOLCE_2]</h4><p>[DESCRIZIONE_DOLCE_2]</p></div>
+          <span class="menu-price">€ [PREZZO]</span>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-info"><h4>[DOLCE_3]</h4><p>[DESCRIZIONE_DOLCE_3]</p></div>
+          <span class="menu-price">€ [PREZZO]</span>
+        </div>
+      </div>
+
+      <div class="menu-cta" data-reveal>
+        <a href="[LINK_MENU]" class="btn btn-dark" target="_blank" rel="noopener">Visualizza il Menù Completo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ RECENSIONI ════════════════════════════════════════════════════ -->
+  <section id="recensioni">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <span class="eyebrow">Cosa dicono di noi</span>
+        <h2 class="display">Recensioni Google</h2>
+      </div>
+      <div class="reviews-score" data-reveal>
+        <span class="score-number">[PUNTEGGIO_RECENSIONI]</span>
+        <div class="score-detail">
+          <span class="stars">★★★★★</span>
+          <span class="score-meta">Basato su <strong>[NUMERO_RECENSIONI]</strong> recensioni verificate</span>
+          <span class="score-meta" style="display:flex;align-items:center;gap:.4rem;margin-top:.3rem;">
+            <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            Google Reviews
+          </span>
+        </div>
+      </div>
+
+      <div class="reviews-grid">
+        <!-- Recensione 1 -->
+        <article class="review-card" data-reveal data-delay="1">
+          <div class="review-header">
+            <div class="review-avatar">M</div>
+            <div>
+              <div class="review-name">[NOME_RECENSORE_1]</div>
+              <div class="review-date">[DATA_RECENSIONE_1]</div>
+            </div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"[TESTO_RECENSIONE_1] — Un posto che si distingue per la qualità e la cura dei dettagli. Torneremo sicuramente."</p>
+        </article>
+        <!-- Recensione 2 -->
+        <article class="review-card" data-reveal data-delay="2">
+          <div class="review-header">
+            <div class="review-avatar" style="background:#6B7280;">G</div>
+            <div>
+              <div class="review-name">[NOME_RECENSORE_2]</div>
+              <div class="review-date">[DATA_RECENSIONE_2]</div>
+            </div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"[TESTO_RECENSIONE_2] — La pasta fatta in casa è semplicemente straordinaria. Ingredienti freschi e personale gentilissimo."</p>
+        </article>
+        <!-- Recensione 3 -->
+        <article class="review-card" data-reveal data-delay="3">
+          <div class="review-header">
+            <div class="review-avatar" style="background:#059669;">F</div>
+            <div>
+              <div class="review-name">[NOME_RECENSORE_3]</div>
+              <div class="review-date">[DATA_RECENSIONE_3]</div>
+            </div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"[TESTO_RECENSIONE_3] — Una serata davvero memorabile. Consiglio a chiunque voglia vivere la vera tradizione culinaria italiana."</p>
+        </article>
+      </div>
+
+      <div class="reviews-cta" data-reveal>
+        <a href="https://search.google.com/local/writereview?placeid=[GOOGLE_PLACE_ID]" class="btn btn-ghost" target="_blank" rel="noopener">Lascia una Recensione</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ GALLERIA ══════════════════════════════════════════════════════ -->
+  <section id="galleria">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <span class="eyebrow">Atmosfera e sapori</span>
+        <h2 class="display" style="color:#fff;">La nostra Galleria</h2>
+        <p>Un assaggio visivo di ciò che vi aspetta.</p>
+      </div>
+      <div class="gallery-grid" data-reveal>
+        <!-- Rimpiazza le emoji con <img src="[FOTO_X]" alt="..."> -->
+        <div class="gallery-item"><div class="gallery-placeholder">🍝</div></div>
+        <div class="gallery-item"><div class="gallery-placeholder">🥗</div></div>
+        <div class="gallery-item"><div class="gallery-placeholder">🍷</div></div>
+        <div class="gallery-item"><div class="gallery-placeholder">🍮</div></div>
+        <div class="gallery-item"><div class="gallery-placeholder">🫕</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ INFO ══════════════════════════════════════════════════════════ -->
+  <section id="info">
+    <div class="container">
+      <div>
+        <span class="eyebrow" data-reveal style="display:block;margin-bottom:.75rem;">Dove trovarci</span>
+        <h2 class="display" data-reveal>Informazioni<br>e Contatti</h2>
+        <hr style="width:3rem;height:2px;background:var(--c-gold);border:none;margin-block:1.5rem;" data-reveal>
+
+        <div class="info-items" data-reveal>
+          <div class="info-item">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <span class="info-item-label">Indirizzo</span>
+              <div class="info-item-value">
+                <a href="[LINK_GOOGLE_MAPS]" target="_blank" rel="noopener">[INDIRIZZO], [CITTA]</a>
+              </div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 13.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012.6 2.7h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 10.09a16 16 0 006 6l.86-.86a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div>
+              <span class="info-item-label">Telefono</span>
+              <div class="info-item-value"><a href="tel:[TELEFONO]">[TELEFONO]</a></div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <span class="info-item-label">Email</span>
+              <div class="info-item-value"><a href="mailto:[EMAIL]">[EMAIL]</a></div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <span class="info-item-label">Orari di apertura</span>
+              <div class="info-item-value">
+                <div class="hours-grid">
+                  <span class="day">Lunedì – Venerdì</span><span class="time">[ORARIO_LUN_VEN]</span>
+                  <span class="day">Sabato</span><span class="time">[ORARIO_SAB]</span>
+                  <span class="day">Domenica</span><span class="time">[ORARIO_DOM]</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-reveal data-delay="2">
+        <div style="background:var(--c-rule);border-radius:var(--r-lg);overflow:hidden;margin-bottom:1.5rem;">
+          <!-- Mappa inline — rimpiazza con iframe Google Maps -->
+          <div style="width:100%;height:320px;background:linear-gradient(135deg,#ddd8d0,#c8c0b4);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;color:var(--c-ink-soft);">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--c-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span style="font-size:.9rem;">[INDIRIZZO], [CITTA]</span>
+          </div>
+          <!--
+          MAPPA REALE — Sostituisci il div sopra con:
+          <iframe
+            src="[LINK_GOOGLE_MAPS_EMBED]"
+            width="100%" height="320"
+            style="border:0;" allowfullscreen loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+          -->
+        </div>
+        <a href="[LINK_GOOGLE_MAPS]" class="btn btn-dark" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Apri su Google Maps
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ MAPPA FULLWIDTH (opzionale) ══════════════════════════════════ -->
+  <!-- Rimuovi il commento e inserisci l'URL embed per attivare
+  <div id="mappa" class="map-container">
+    <iframe src="[LINK_GOOGLE_MAPS_EMBED]" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+  -->
+
+  <!-- ═══ CTA FINALE ════════════════════════════════════════════════════ -->
+  <section id="cta-finale">
+    <div class="container">
+      <span class="eyebrow">Riservato a te</span>
+      <h2 class="display">Prenota il tuo<br>tavolo oggi</h2>
+      <p>Chiamaci o prenota online. La nostra cucina è pronta ad accoglierti.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="[LINK_PRENOTAZIONE]" class="btn btn-primary" style="font-size:1rem;padding:1rem 2.4rem;" target="_blank" rel="noopener">
+          Prenota Online
+        </a>
+        <a href="tel:[TELEFONO]" class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 13.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012.6 2.7h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 10.09a16 16 0 006 6l.86-.86a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Chiama ora
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ════════════════════════════════════════════════════════ -->
+  <footer id="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="nav-logo">[NOME_RISTORANTE]</a>
+          <p>[SLOGAN] — Una cucina che nasce dal cuore e arriva alla tavola.</p>
+          <div class="footer-social">
+            <a href="[LINK_INSTAGRAM]" class="social-icon" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M17.5 6.5h.01"/></svg>
+            </a>
+            <a href="[LINK_FACEBOOK]" class="social-icon" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Navigazione</h5>
+          <ul>
+            <li><a href="#chi-siamo">Chi Siamo</a></li>
+            <li><a href="#specialita">Specialità</a></li>
+            <li><a href="#menu">Menù</a></li>
+            <li><a href="#recensioni">Recensioni</a></li>
+            <li><a href="#info">Contatti</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Contatti</h5>
+          <ul>
+            <li><a href="[LINK_GOOGLE_MAPS]" target="_blank" rel="noopener">[INDIRIZZO]</a></li>
+            <li><a href="tel:[TELEFONO]">[TELEFONO]</a></li>
+            <li><a href="mailto:[EMAIL]">[EMAIL]</a></li>
+            <li style="color:rgba(255,255,255,.35);font-size:.83rem;margin-top:.5rem;">[ORARI]</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> [NOME_RISTORANTE] · P.IVA [P_IVA] · [CITTA]</span>
+        <span>Sito web by [AGENZIA]</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══ JAVASCRIPT ════════════════════════════════════════════════════ -->
+  <script>
+    /* Year */
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* Sticky nav */
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    /* Mobile nav toggle */
+    const burger = document.getElementById('burger');
+    const links  = document.getElementById('navLinks');
+    burger.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open);
+    });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      links.classList.remove('open');
+      burger.setAttribute('aria-expanded', false);
+    }));
+
+    /* Scroll reveal */
+    const reveals = document.querySelectorAll('[data-reveal]');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => io.observe(el));
+
+    /* Menu tabs */
+    function switchTab(name) {
+      document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', false); });
+      document.getElementById('tab-' + name).classList.add('active');
+      const active = [...document.querySelectorAll('.tab-btn')].find(b => b.getAttribute('onclick').includes(name));
+      if (active) { active.classList.add('active'); active.setAttribute('aria-selected', true); }
+    }
+  </script>
+
+</body>
+</html>
